@@ -1,0 +1,12 @@
+.input {
+  width: 40%;
+}
+
+.select {
+  width: 25%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
