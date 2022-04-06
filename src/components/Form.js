@@ -52,10 +52,7 @@ const Form = () => {
       css,
     };
 
-    // console.log(JSON.stringify(generatedCode));
-
     const url = await sendData(JSON.stringify(generatedCode));
-    console.log(url);
     setUrl(url);
   };
 

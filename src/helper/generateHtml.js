@@ -1,15 +1,15 @@
 const generateGrid = () => {
   const grid = `    <div class="griglia">
   <div class="numeri-griglia">
-    <div>90</div>
-    <div>80</div>
-    <div>70</div>
-    <div>60</div>
-    <div>50</div>
-    <div>40</div>
-    <div>30</div>
-    <div>20</div>
-    <div>10</div>
+    <div>90     </div>
+    <div>80     </div>
+    <div>70     </div>
+    <div>60     </div>
+    <div>50     </div>
+    <div>40     </div>
+    <div>30     </div>
+    <div>20     </div>
+    <div>10     </div>
   </div>
   <div class="righe-griglia">
     <div></div>
@@ -59,7 +59,7 @@ const generateBlocks = (data) => {
   for (let j = 0; j < data.blocks.length; j++) {
     const classe = `sezione-${data.title}-${data.blocks[j]}`;
     output += `<div class="div-perc">
-      <p>${data.blocks[j]}</p>
+      <p>${data.blocks[j]}%</p>
       <div class=${classe}></div>
       </div>
       `;
@@ -109,20 +109,6 @@ export const generateHtml = (data) => {
     </div>
   </body>
 `;
-  //   const html = `
-  //   <body>
-  //   <div class="container">
-  //     <h1>${data.diagramTitle}</h1>
-  //     <div class="grafico"></div>
-  //     ${data.grid ? generateGrid() : ``}
-  //     ${generateSections(data)}
-  //     <div class="titolo-sezione">
-  //     ${generateTitles(data)}
-  //     </div>
-  //     ${data.legend.legend ? generateLegend(data) : ``}
-  //   </div>
-  // </body>;
-  // `;
 
   return html;
 };

@@ -51,11 +51,13 @@ const generateGrid = () => {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: flex-end;
     margin-top: 9px;
   }
   
   .numeri-griglia div {
     font-size: 0.5rem;
+    padding-right: 0.5rem;
   }
   
   .righe-griglia {
