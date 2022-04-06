@@ -88,8 +88,11 @@ const generateBlocks = (data) => {
   for (let i = 1; i <= data.numberOfSection; i++) {
     const section = data[`section-${i}`];
     for (let j = 1; j <= data.numberOfBlocks; j++) {
-      const classe = `.sezione-${section.title}-${section.blocks[j - 1]}`;
       const color = data.legend[`color-${j}`];
+      const noCol = color.slice(1);
+      const classe = `.sezione-${section.title.replace(/ /g, '_')}-${
+        section.blocks[j - 1]
+      }-${noCol}`;
 
       outupt += `
       ${classe} {

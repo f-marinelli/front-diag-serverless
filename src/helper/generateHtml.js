@@ -54,14 +54,20 @@ const generateLegend = (data) => {
   return legend;
 };
 
-const generateBlocks = (data) => {
+const generateBlocks = (data, color) => {
   let output = ``;
   for (let j = 0; j < data.blocks.length; j++) {
-    const classe = `sezione-${data.title}-${data.blocks[j]}`;
-    output += `<div class="div-perc">
-      <p>${data.blocks[j]}%</p>
+    const col = color.legend[`color-${j + 1}`];
+    const noCol = col.slice(1);
+    const classe = `sezione-${data.title.replace(/ /g, '_')}-${
+      data.blocks[j]
+    }-${noCol}`;
+    const p = data.blocks[j] < 90 ? `<p>${data.blocks[j]}%</p>` : ``;
+    output += `
+    <div class="div-perc">
+      ${p}
       <div class=${classe}></div>
-      </div>
+    </div>
       `;
   }
 
@@ -73,7 +79,7 @@ const generateSections = (data) => {
   for (let i = 1; i <= data.numberOfSection; i++) {
     let section = data[`section-${i}`];
     output += `<div class="sezione">
-      ${generateBlocks(section)}
+      ${generateBlocks(section, data)}
     </div>
 `;
   }
