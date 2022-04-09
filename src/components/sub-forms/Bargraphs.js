@@ -16,16 +16,16 @@ const Bargraphs = () => {
   };
 
   const dataLegend = [...Array(Number(blocks)).keys()].map((block) => (
-    <div key={block}>
+    <div className={classes.color} key={block}>
       <label htmlFor={`color-${block + 1}`}>Color block n{block + 1}: </label>
       <input type="color" name={`color-${block + 1}`} id="colorPicker" />
       <label htmlFor={`name-${block + 1}`}> Name block: </label>
-      <input type="text" name={`name-${block + 1}`} required maxlength="20" />
+      <input type="text" name={`name-${block + 1}`} required maxLength="20" />
     </div>
   ));
 
   const numBlocks = [...Array(Number(blocks)).keys()].map((block, i) => (
-    <div key={`block-${block + i}`}>
+    <div className={classes.height} key={`block-${block + i}`}>
       <label key={`label-${block + i}`} htmlFor={`block-${block}`}>
         Height block {i + 1} (%)
       </label>
@@ -46,7 +46,7 @@ const Bargraphs = () => {
       Section {el + 1}
       <div>
         <label htmlFor="sectitle">Section title: </label>
-        <input type="text" id="sectitle" maxlength="20"></input>
+        <input type="text" id="sectitle" maxLength="20"></input>
       </div>
       {numBlocks}
     </div>
@@ -82,7 +82,7 @@ const Bargraphs = () => {
           required
         >
           <option defaultValue hidden></option>
-          <option value="1">1</option>
+          {/* <option value="1">1</option> */}
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
@@ -90,23 +90,22 @@ const Bargraphs = () => {
         </select>
       </div>
       <div>
-        <label htmlFor="titlediagram">Diagram Title:</label>
+        <label htmlFor="titlediagram">Diagram Title: </label>
         <input
           type="text"
           id="title-diagram"
           name="titlediagram"
-          maxlength="50"
+          maxLength="50"
         />
       </div>
-      {dataLegend}
-      {numSections}
-      <div>
+      <div className={classes.colors}>{dataLegend}</div>
+      <div className={classes.sections}>{numSections}</div>
+      <div className={classes.checkboxes}>
         <label htmlFor="grid">Grid:</label>
         <input type="checkbox" id="grid" name="grid" />
         <label htmlFor="legend">Legend:</label>
         <input type="checkbox" id="legend" name="legend" />
       </div>
-      <button type="sybmit">Submit</button>
     </Fragment>
   );
 };

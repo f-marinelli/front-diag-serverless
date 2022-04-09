@@ -56,6 +56,18 @@ const Form = () => {
     setUrl(url);
   };
 
+  const downloadButton = url ? (
+    <button className={classes.buttondwn}>
+      <a href={url} download rel="noopener noreferrer" target="_blank">
+        Download
+      </a>
+    </button>
+  ) : (
+    <button className={classes.buttonDis} disabled>
+      <span>Download</span>
+    </button>
+  );
+
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       <div>
@@ -76,13 +88,13 @@ const Form = () => {
 
       {selectedDiag === 'bargraphs' && <Bargraphs />}
 
-      {url && (
-        <button>
-          <a href={url} download rel="noopener noreferrer" target="_blank">
-            Download
-          </a>
+      <div className={classes.buttons}>
+        <button className={classes.button} type="sybmit">
+          Submit
         </button>
-      )}
+
+        {downloadButton}
+      </div>
     </form>
   );
 };

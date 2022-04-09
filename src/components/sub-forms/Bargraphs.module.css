@@ -9,4 +9,32 @@
 .section {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+  width: 30%;
+  margin-bottom: 2rem;
+}
+
+.sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.height {
+  display: flex;
+  justify-content: space-between;
+}
+
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1rem 0;
+  gap: 0.5rem;
+}
+
+.checkboxes {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
 }

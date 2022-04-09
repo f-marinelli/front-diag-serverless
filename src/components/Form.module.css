@@ -2,11 +2,44 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 80%;
-  width: 40%;
+  background-color: orange;
+  height: fit-content;
+  width: 50%;
   gap: 1rem;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 3rem;
+  box-shadow: 0 5px 20px 3px #888888;
 }
 
 .select {
   width: 25%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.button {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+}
+
+.buttondwn {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: rgb(138, 227, 3);
+  border-radius: 6px;
+}
+
+.buttonDis {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  cursor: not-allowed;
+  border-radius: 6px;
 }
