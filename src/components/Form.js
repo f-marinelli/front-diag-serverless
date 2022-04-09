@@ -66,6 +66,7 @@ const Form = () => {
           onChange={diagramChangeHandler}
           name="select-diagram"
           id="select-diagram"
+          required
         >
           <option defaultValue hidden></option>
           <option value="bargraphs">Bargraphs</option>

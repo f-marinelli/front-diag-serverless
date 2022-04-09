@@ -20,7 +20,7 @@ const Bargraphs = () => {
       <label htmlFor={`color-${block + 1}`}>Color block n{block + 1}: </label>
       <input type="color" name={`color-${block + 1}`} id="colorPicker" />
       <label htmlFor={`name-${block + 1}`}> Name block: </label>
-      <input type="text" name={`name-${block + 1}`} />
+      <input type="text" name={`name-${block + 1}`} required maxlength="20" />
     </div>
   ));
 
@@ -34,6 +34,9 @@ const Bargraphs = () => {
         type="number"
         name={`block`}
         id={`block-${block}`}
+        min="0"
+        max="100"
+        required
       ></input>
     </div>
   ));
@@ -43,7 +46,7 @@ const Bargraphs = () => {
       Section {el + 1}
       <div>
         <label htmlFor="sectitle">Section title: </label>
-        <input type="text" id="sectitle"></input>
+        <input type="text" id="sectitle" maxlength="20"></input>
       </div>
       {numBlocks}
     </div>
@@ -59,6 +62,7 @@ const Bargraphs = () => {
           onChange={changeSectionsHandler}
           name="selectsection"
           id="select-section"
+          required
         >
           <option defaultValue hidden></option>
           <option value="2">2</option>
@@ -75,6 +79,7 @@ const Bargraphs = () => {
           onChange={changeBlocksHandler}
           name="blockssection"
           id="blocks-section"
+          required
         >
           <option defaultValue hidden></option>
           <option value="1">1</option>
@@ -86,7 +91,12 @@ const Bargraphs = () => {
       </div>
       <div>
         <label htmlFor="titlediagram">Diagram Title:</label>
-        <input type="text" id="title-diagram" name="titlediagram" />
+        <input
+          type="text"
+          id="title-diagram"
+          name="titlediagram"
+          maxlength="50"
+        />
       </div>
       {dataLegend}
       {numSections}
