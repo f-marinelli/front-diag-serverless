@@ -4,7 +4,7 @@ import Bargraphs from './sub-forms/Bargraphs';
 import { generateHtml } from '../helper/generateHtml';
 import { generateCss } from '../helper/generateCss';
 import { sendData } from '../helper/sendData';
-import fetch from '../../api/fetch';
+import fetch from '/Users/fabri/Documents/Fabrizio/front-diag-serverless/api/fetch.js';
 
 const Form = () => {
   const typeDiag = useRef();
