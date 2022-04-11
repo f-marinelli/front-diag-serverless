@@ -4,6 +4,7 @@ import Bargraphs from './sub-forms/Bargraphs';
 import { generateHtml } from '../helper/generateHtml';
 import { generateCss } from '../helper/generateCss';
 import { sendData } from '../helper/sendData';
+import fetch from '../api/fetch';
 
 const Form = () => {
   const typeDiag = useRef();
@@ -52,7 +53,7 @@ const Form = () => {
       css,
     };
 
-    const url = await sendData(JSON.stringify(generatedCode));
+    const url = await fetch(JSON.stringify(generatedCode));
     setUrl(url);
   };
 
