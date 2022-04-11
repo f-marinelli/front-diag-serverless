@@ -1,13 +1,39 @@
-// const fetch = require('node-fetch');
+const https = require('https');
 
-// export default async function handler(req, res) {
-//   const data = await fetch('https://www.google.com/');
+const options = {
+  hostname: 'hcti.io',
+  port: 443,
+  path: '/v1/image',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization:
+      'Basic ' +
+      new Buffer.from(
+        'e64f69a6-3071-4383-9b9c-7bee3a4cfb3d' +
+          ':' +
+          'c5041e15-c746-4802-935f-4f7e2711ee65'
+      ).toString('base64'),
+  },
+};
 
-//   const url = await data.json();
-//   console.log(url);
-// }
-//
+module.exports = async function handler(req, res) {
+  const data = req.body;
+  new Promise((resolve, reject) => {
+    const req = https.request(options, (res) => {
+      res.on('data', (d) => {
+        res['resUrl'] = JSON.parse(d);
+      });
+    });
+    req.on('response', (res) => {
+      resolve(res);
+    });
 
-module.exports = async function handler(request, response) {
-  console.log('??');
+    req.on('error', (error) => {
+      reject(error);
+    });
+
+    req.write(JSON.stringify(data));
+    req.end();
+  }).then((url) => res.send(url.resUrl.url));
 };
