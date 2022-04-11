@@ -8,6 +8,6 @@
 // }
 //
 
-export default async function handler(request, response) {
+module.exports = async function handler(request, response) {
   console.log('??');
-}
+};
