@@ -3,12 +3,13 @@ import classes from './Form.module.css';
 import Bargraphs from './sub-forms/Bargraphs';
 import { generateHtml } from '../helper/generateHtml';
 import { generateCss } from '../helper/generateCss';
-import { sendData } from '../helper/sendData';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Form = () => {
   const typeDiag = useRef();
   const [selectedDiag, setSelectedDiag] = useState('');
   const [url, setUrl] = useState(null);
+  const [token, setToken] = useState();
 
   const diagramChangeHandler = () => {
     setSelectedDiag(typeDiag.current.value);
@@ -52,7 +53,7 @@ const Form = () => {
       css,
     };
 
-    const serverData = await fetch('/api/fetch.js', {
+    const serverData = await fetch(process.env.REACT_APP_CLIENT_FETCH, {
       method: 'POST',
       body: JSON.stringify(generatedCode),
       headers: {
@@ -61,8 +62,16 @@ const Form = () => {
     });
 
     const url = await serverData.text();
-    setUrl(url);
+
+    if (token) {
+      setUrl(url);
+      setToken(null);
+    }
   };
+
+  function onChange(value) {
+    setToken(value);
+  }
 
   const downloadButton = url ? (
     <button className={classes.buttondwn}>
@@ -103,6 +112,10 @@ const Form = () => {
 
         {downloadButton}
       </div>
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_CLIENT_CAPTCHA}
+        onChange={onChange}
+      />
     </form>
   );
 };
