@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 // const fs = require('fs');
+import chromium from 'chrome-aws-lambda';
 const puppeteer = require('puppeteer');
 
 const firebaseConfig = {
@@ -351,7 +352,14 @@ module.exports = async function handler(req, res) {
   //     if (err) throw err;
   //   }
   // );
-  const browser = await puppeteer.launch({ headless: true });
+  // const browser = await puppeteer.launch({ headless: true });
+  const browser = await chromium.puppeteer.launch({
+    args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: true,
+    ignoreHTTPSErrors: true,
+  });
   const page = await browser.newPage();
   await page.setViewport({
     width: 1920,
