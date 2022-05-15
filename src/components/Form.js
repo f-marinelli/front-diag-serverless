@@ -1,10 +1,25 @@
 import { useState, useRef } from 'react';
 import classes from './Form.module.css';
 import Bargraphs from './sub-forms/Bargraphs';
-import diagramma from '../diagrama.jpeg';
 import { generateHtml } from '../helper/generateHtml';
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
 import ReCAPTCHA from 'react-google-recaptcha';
 import Diagram from './preview/Diagram';
+
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_CLIENT_APIKEY,
+  authDomain: process.env.REACT_APP_CLIENT_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_CLIENT_PROJECT_ID,
+  storageBucket: 'diagrammi-666da.appspot.com',
+  messagingSenderId: '17842687905',
+  appId: process.env.REACT_APP_CLIENT_APP_ID,
+  measurementId: 'G-EFM3C3133F',
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+const reference = ref(storage, '/diagram');
 
 const Form = () => {
   const typeDiag = useRef();
@@ -13,6 +28,7 @@ const Form = () => {
   const [html, setHtml] = useState();
   const [token, setToken] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const [download, setDownload] = useState();
 
   const diagramChangeHandler = () => {
     setSelectedDiag(typeDiag.current.value);
@@ -66,6 +82,8 @@ const Form = () => {
       setUrl(url);
       setToken(null);
     }
+
+    await getDownloadURL(reference).then((res) => setDownload(res));
   };
 
   function onChange(value) {
@@ -78,7 +96,7 @@ const Form = () => {
 
   const downloadButton = url ? (
     <button className={classes.buttondwn}>
-      <a href={diagramma} download rel="noopener noreferrer" target="_blank">
+      <a href={download} download rel="noopener noreferrer">
         Download
       </a>
     </button>
