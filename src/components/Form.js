@@ -1,15 +1,18 @@
 import { useState, useRef } from 'react';
 import classes from './Form.module.css';
 import Bargraphs from './sub-forms/Bargraphs';
+import diagramma from '../diagrama.jpeg';
 import { generateHtml } from '../helper/generateHtml';
-import { generateCss } from '../helper/generateCss';
 import ReCAPTCHA from 'react-google-recaptcha';
+import Diagram from './preview/Diagram';
 
 const Form = () => {
   const typeDiag = useRef();
   const [selectedDiag, setSelectedDiag] = useState('');
   const [url, setUrl] = useState(null);
+  const [html, setHtml] = useState();
   const [token, setToken] = useState();
+  const [isOpen, setIsOpen] = useState(false);
 
   const diagramChangeHandler = () => {
     setSelectedDiag(typeDiag.current.value);
@@ -46,16 +49,12 @@ const Form = () => {
       }
     }
 
-    const html = generateHtml(data);
-    const css = generateCss(data);
-    const generatedCode = {
-      html,
-      css,
-    };
+    const htmlString = generateHtml(data);
+    setHtml(htmlString);
 
     const serverData = await fetch(process.env.REACT_APP_CLIENT_FETCH, {
       method: 'POST',
-      body: JSON.stringify(generatedCode),
+      body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -73,9 +72,13 @@ const Form = () => {
     setToken(value);
   }
 
+  const changeOpen = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
   const downloadButton = url ? (
     <button className={classes.buttondwn}>
-      <a href={url} download rel="noopener noreferrer" target="_blank">
+      <a href={diagramma} download rel="noopener noreferrer" target="_blank">
         Download
       </a>
     </button>
@@ -110,12 +113,17 @@ const Form = () => {
           Submit
         </button>
 
+        <button type="button" className={classes.button} onClick={changeOpen}>
+          Preview
+        </button>
+
         {downloadButton}
       </div>
       <ReCAPTCHA
         sitekey={process.env.REACT_APP_CLIENT_CAPTCHA}
         onChange={onChange}
       />
+      {isOpen && <Diagram html={html} />}
     </form>
   );
 };

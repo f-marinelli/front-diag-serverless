@@ -1,39 +1,34 @@
-const https = require('https');
-
-const options = {
-  hostname: 'hcti.io',
-  port: 443,
-  path: '/v1/image',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization:
-      'Basic ' +
-      new Buffer.from(
-        'e64f69a6-3071-4383-9b9c-7bee3a4cfb3d' +
-          ':' +
-          'c5041e15-c746-4802-935f-4f7e2711ee65'
-      ).toString('base64'),
-  },
-};
+import { generateCss } from './generateCss';
+import { generateHtml } from './generateHtml';
+const fs = require('fs');
+const puppeteer = require('puppeteer');
 
 module.exports = async function handler(req, res) {
   const data = req.body;
-  new Promise((resolve, reject) => {
-    const req = https.request(options, (res) => {
-      res.on('data', (d) => {
-        res['resUrl'] = JSON.parse(d);
-      });
-    });
-    req.on('response', (res) => {
-      resolve(res);
-    });
 
-    req.on('error', (error) => {
-      reject(error);
-    });
+  const css = generateCss(data);
+  const html = generateHtml(data, css);
 
-    req.write(JSON.stringify(data));
-    req.end();
-  }).then((url) => res.send(url.resUrl.url));
+  fs.writeFile(
+    `${__dirname}/../src/components/preview/Diagram.css`,
+    css,
+    (err) => {
+      if (err) throw err;
+    }
+  );
+
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+  await page.setViewport({
+    width: 1920,
+    height: 1080,
+    deviceScaleFactor: 3,
+  });
+  await page.setContent(html);
+  const element = await page.$('.container');
+  await element.screenshot({
+    path: `${__dirname}/../src/diagrama.jpeg`,
+  });
+
+  res.send('url');
 };

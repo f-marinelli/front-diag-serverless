@@ -126,7 +126,7 @@ export const generateCss = (data) => {
   /*  */
   
   .container {
-    width: 100%;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
