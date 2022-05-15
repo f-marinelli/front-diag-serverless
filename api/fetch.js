@@ -24,13 +24,13 @@ module.exports = async function handler(req, res) {
   const css = generateCss(data);
   const html = generateHtml(data, css);
 
-  await fs.writeFile(
-    `${__dirname}/../src/components/preview/Diagram.css`,
-    css,
-    (err) => {
-      if (err) throw err;
-    }
-  );
+  // await fs.writeFile(
+  //   `${__dirname}/../src/components/preview/Diagram.css`,
+  //   css,
+  //   (err) => {
+  //     if (err) throw err;
+  //   }
+  // );
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   await page.setViewport({
