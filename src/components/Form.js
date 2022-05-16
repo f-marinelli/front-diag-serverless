@@ -6,16 +6,6 @@ import { generateCss } from '../helper/generateCss';
 import ReCAPTCHA from 'react-google-recaptcha';
 import Diagram from './preview/Diagram';
 
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_CLIENT_APIKEY,
-  authDomain: process.env.REACT_APP_CLIENT_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_CLIENT_PROJECT_ID,
-  storageBucket: 'diagrammi-666da.appspot.com',
-  messagingSenderId: '17842687905',
-  appId: process.env.REACT_APP_CLIENT_APP_ID,
-  measurementId: 'G-EFM3C3133F',
-};
-
 const Form = () => {
   const typeDiag = useRef();
   const [selectedDiag, setSelectedDiag] = useState('');
