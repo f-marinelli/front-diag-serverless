@@ -3,8 +3,6 @@ import classes from './Form.module.css';
 import Bargraphs from './sub-forms/Bargraphs';
 import { generateHtml } from '../helper/generateHtml';
 import { generateCss } from '../helper/generateCss';
-import { getDownloadURL, getStorage, ref } from 'firebase/storage';
-import { initializeApp } from 'firebase/app';
 import ReCAPTCHA from 'react-google-recaptcha';
 import Diagram from './preview/Diagram';
 
@@ -17,10 +15,6 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_CLIENT_APP_ID,
   measurementId: 'G-EFM3C3133F',
 };
-
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
-const reference = ref(storage, '/diagram');
 
 const Form = () => {
   const typeDiag = useRef();
@@ -78,14 +72,14 @@ const Form = () => {
       },
     });
 
-    const url = await serverData.text();
+    const url = await serverData.blob();
+    const objectURL = URL.createObjectURL(url);
 
     if (token) {
       setUrl(url);
+      setDownload(objectURL);
       setToken(null);
     }
-
-    await getDownloadURL(reference).then((res) => setDownload(res));
   };
 
   function onChange(value) {
