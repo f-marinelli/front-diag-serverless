@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import classes from './Form.module.css';
 import Bargraphs from './sub-forms/Bargraphs';
 import { generateHtml } from '../helper/generateHtml';
+import { generateCss } from '../helper/generateCss';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -65,7 +66,8 @@ const Form = () => {
       }
     }
 
-    const htmlString = generateHtml(data);
+    const css = generateCss(data);
+    const htmlString = generateHtml(data, css);
     setHtml(htmlString);
 
     const serverData = await fetch(process.env.REACT_APP_CLIENT_FETCH, {

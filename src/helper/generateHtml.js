@@ -99,8 +99,13 @@ const generateTitles = (data) => {
   return output;
 };
 
-export const generateHtml = (data) => {
+export const generateHtml = (data, css) => {
   const html = `
+  <head>
+  <style>
+    ${css}
+  </style>
+</head>
   <body>
     <div class="container">
       <h1>${data.diagramTitle}</h1>

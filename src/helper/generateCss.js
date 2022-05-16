@@ -117,7 +117,6 @@ export const generateCss = (data) => {
   
   body {
     width: 100vw;
-    font-family: 'Times New Roman', Times, serif;
   }
   
   h1 {
