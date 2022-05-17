@@ -1,8 +1,8 @@
 import { useState, useRef } from 'react';
 import classes from './Form.module.css';
 import Bargraphs from './sub-forms/Bargraphs';
-import { generateHtml } from '../helper/generateHtml';
-import { generateCss } from '../helper/generateCss';
+import { generateHtml } from '../utils/generateHtml';
+import { generateCss } from '../utils/generateCss';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const Form = () => {
@@ -64,16 +64,16 @@ const Form = () => {
     const url = await serverData.blob();
     const objectURL = URL.createObjectURL(url);
 
-    // if (token) {
-    setUrl(url);
-    setDownload(objectURL);
-    //   setToken(null);
-    // }
+    if (token) {
+      setUrl(url);
+      setDownload(objectURL);
+      setToken(null);
+    }
   };
 
-  // function onChange(value) {
-  //   setToken(value);
-  // }
+  function onChange(value) {
+    setToken(value);
+  }
 
   const changeOpen = () => {
     setIsOpen((prevState) => !prevState);
@@ -122,10 +122,10 @@ const Form = () => {
 
         {downloadButton}
       </div>
-      {/* <ReCAPTCHA
+      <ReCAPTCHA
         sitekey={process.env.REACT_APP_CLIENT_CAPTCHA}
         onChange={onChange}
-      /> */}
+      />
       {isOpen && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
     </form>
   );
