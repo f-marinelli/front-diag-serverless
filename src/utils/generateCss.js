@@ -114,18 +114,14 @@ export const generateCss = (data) => {
     margin: 0;
     padding: 0;
   }
-  
-  body {
-    width: 100vw;
-  }
-  
+    
   h1 {
     font-size: 1rem;
   }
   /*  */
   
   .container {
-    width: 100%;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;

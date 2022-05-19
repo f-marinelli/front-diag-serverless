@@ -1,12 +1,7 @@
 import chromium from 'chrome-aws-lambda';
-import { generateCss } from './_generateCss';
-import { generateHtml } from './_generateHtml';
 
 module.exports = async function handler(req, res) {
   const data = req.body;
-
-  const css = generateCss(data);
-  const html = generateHtml(data, css);
 
   const browser = await chromium.puppeteer.launch({
     args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
@@ -23,7 +18,7 @@ module.exports = async function handler(req, res) {
     deviceScaleFactor: 3,
   });
 
-  await page.setContent(html);
+  await page.setContent(data);
 
   const element = await page.$('.container');
   const screen = await element.screenshot();

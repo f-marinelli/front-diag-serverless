@@ -55,7 +55,7 @@ const Form = () => {
 
     const serverData = await fetch(process.env.REACT_APP_CLIENT_FETCH, {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(htmlString),
       headers: {
         'Content-Type': 'application/json',
       },
