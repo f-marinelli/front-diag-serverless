@@ -54,8 +54,10 @@ const Bargraphs = () => {
 
   return (
     <Fragment>
-      <div id="sel-sect">
-        <label htmlFor="selectsection">Numbers of sections: </label>
+      <div id="sel-sect" className={classes.divSel}>
+        <label className={classes.label} htmlFor="selectsection">
+          Numbers of sections:{' '}
+        </label>
         <select
           className={classes.select}
           ref={nSection}
@@ -71,7 +73,7 @@ const Bargraphs = () => {
           <option value="5">5</option>
         </select>
       </div>
-      <div id="sel-block">
+      <div id="sel-block" className={classes.divSel}>
         <label htmlFor="blockssection">Blocks for sections: </label>
         <select
           className={classes.select}

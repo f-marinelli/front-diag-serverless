@@ -2,8 +2,14 @@
   width: 40%;
 }
 
+.divSel {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .select {
-  width: 25%;
+  width: fit-content;
 }
 
 .section {

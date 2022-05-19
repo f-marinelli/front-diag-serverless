@@ -5,13 +5,11 @@ import { generateHtml } from '../utils/generateHtml';
 import { generateCss } from '../utils/generateCss';
 import ReCAPTCHA from 'react-google-recaptcha';
 
-const Form = () => {
+const Form = (props) => {
   const typeDiag = useRef();
   const [selectedDiag, setSelectedDiag] = useState('');
   const [url, setUrl] = useState(null);
-  const [html, setHtml] = useState();
   const [token, setToken] = useState();
-  const [isOpen, setIsOpen] = useState(false);
   const [download, setDownload] = useState();
 
   const diagramChangeHandler = () => {
@@ -51,7 +49,6 @@ const Form = () => {
 
     const css = generateCss(data);
     const htmlString = generateHtml(data, css);
-    setHtml(htmlString);
 
     const serverData = await fetch(process.env.REACT_APP_CLIENT_FETCH, {
       method: 'POST',
@@ -65,6 +62,7 @@ const Form = () => {
     const objectURL = URL.createObjectURL(url);
 
     if (token) {
+      props.preview(htmlString);
       setUrl(url);
       setDownload(objectURL);
       setToken(null);
@@ -74,10 +72,6 @@ const Form = () => {
   function onChange(value) {
     setToken(value);
   }
-
-  const changeOpen = () => {
-    setIsOpen((prevState) => !prevState);
-  };
 
   const downloadButton = url ? (
     <button className={classes.buttondwn}>
@@ -111,22 +105,23 @@ const Form = () => {
 
       {selectedDiag === 'bargraphs' && <Bargraphs />}
 
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_CLIENT_CAPTCHA}
+        onChange={onChange}
+        className={classes.recaptcha}
+      />
+
       <div className={classes.buttons}>
         <button className={classes.button} type="sybmit">
           Submit
         </button>
 
-        <button type="button" className={classes.button} onClick={changeOpen}>
+        <button type="button" className={classes.button} onClick={props.isOpen}>
           Preview
         </button>
 
         {downloadButton}
       </div>
-      <ReCAPTCHA
-        sitekey={process.env.REACT_APP_CLIENT_CAPTCHA}
-        onChange={onChange}
-      />
-      {isOpen && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
     </form>
   );
 };
