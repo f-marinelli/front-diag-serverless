@@ -10,7 +10,6 @@ function App() {
 
   const previewHandler = (prev) => {
     setPreview(prev);
-    console.log(prev);
   };
 
   const changeOpenHandler = () => {

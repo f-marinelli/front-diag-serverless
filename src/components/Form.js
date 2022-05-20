@@ -65,7 +65,7 @@ const Form = (props) => {
       props.preview(htmlString);
       setUrl(url);
       setDownload(objectURL);
-      setToken(null);
+      // setToken(null);
     }
   };
 
