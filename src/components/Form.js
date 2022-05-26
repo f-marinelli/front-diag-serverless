@@ -4,11 +4,11 @@ import Bargraphs from './sub-forms/Bargraphs';
 import { generateHtml } from '../utils/generateHtml';
 import { generateCss } from '../utils/generateCss';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { screen } from 'screen-p';
 
 const Form = (props) => {
   const typeDiag = useRef();
   const [selectedDiag, setSelectedDiag] = useState('');
-  const [url, setUrl] = useState(null);
   const [token, setToken] = useState();
   const [download, setDownload] = useState();
 
@@ -50,22 +50,13 @@ const Form = (props) => {
     const css = generateCss(data);
     const htmlString = generateHtml(data, css);
 
-    const serverData = await fetch(process.env.REACT_APP_CLIENT_FETCH, {
-      method: 'POST',
-      body: JSON.stringify(htmlString),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const serverData = await screen(htmlString);
 
-    const url = await serverData.blob();
-    const objectURL = URL.createObjectURL(url);
+    const objectURL = URL.createObjectURL(serverData);
 
     if (token) {
       props.preview(htmlString);
-      setUrl(url);
       setDownload(objectURL);
-      // setToken(null);
     }
   };
 
@@ -73,7 +64,7 @@ const Form = (props) => {
     setToken(value);
   }
 
-  const downloadButton = url ? (
+  const downloadButton = download ? (
     <button className={classes.buttondwn}>
       <a href={download} download rel="noopener noreferrer">
         Download
