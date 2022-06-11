@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
 
 body {
-  height: 100vh;
-  width: 100vw;
-  font-family: 'Open Sans', sans-serif;
-  background-color: rgba(3, 32, 255, 0.563);
+  height: 100vh !important;
+  width: 100vw !important;
+  font-family: 'Open Sans', sans-serif !important;
+  background-color: rgba(3, 32, 255, 0.563) !important;
 }
 
 .layout {

@@ -122,6 +122,7 @@ export const generateCss = (data) => {
   
   body {
     width: fit-content;
+    height: fit-content
     display: flex;
     flex-direction: column;
     align-items: center;
