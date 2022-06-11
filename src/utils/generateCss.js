@@ -120,7 +120,7 @@ export const generateCss = (data) => {
   }
   /*  */
   
-  .container {
+  body {
     width: fit-content;
     display: flex;
     flex-direction: column;
